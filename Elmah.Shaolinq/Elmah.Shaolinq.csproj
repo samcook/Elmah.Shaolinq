@@ -38,16 +38,16 @@
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platform, Version=1.1.0.197, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Platform.NET.1.1.0.197\lib\net40\Platform.dll</HintPath>
+    <Reference Include="Platform, Version=1.1.0.204, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Platform.NET.1.1.0.204\lib\net40\Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Platform.Xml.Serialization, Version=1.1.0.197, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Platform.Xml.Serialization.1.1.0.197\lib\net40\Platform.Xml.Serialization.dll</HintPath>
+    <Reference Include="Platform.Xml.Serialization, Version=1.1.0.204, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Platform.Xml.Serialization.1.1.0.204\lib\net40\Platform.Xml.Serialization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shaolinq, Version=0.9.1.394, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shaolinq.0.9.1.394\lib\40\Shaolinq.dll</HintPath>
+    <Reference Include="Shaolinq, Version=0.9.1.395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shaolinq.0.9.1.395\lib\40\Shaolinq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

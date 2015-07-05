@@ -18,7 +18,7 @@
     <tags>Elmah Shaolinq Error Logging</tags>
     <dependencies>
       <dependency id="elmah.corelibrary" version="1.2.2" />
-      <dependency id="Shaolinq" version="0.9.1.394"/>
+      <dependency id="Shaolinq" version="0.9.1.395"/>
     </dependencies>
   </metadata>
   <files>
