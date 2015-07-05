@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Elmah.Shaolinq</id>
+    <version>1.0.0</version>
+    <title>Elmah.Shaolinq</title>
+    <authors>Sam Cook</authors>
+    <owners>Sam Cook</owners>
+    <licenseUrl>https://github.com/samcook/Elmah.Shaolinq/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/samcook/Elmah.Shaolinq</projectUrl>
+    <!--<iconUrl></iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An persistence provider for Elmah using Shaolinq</description>
+    <releaseNotes>
+1.0.0 - Initial release
+    </releaseNotes>
+    <copyright>Copyright 2015 Sam Cook</copyright>
+    <tags>Elmah Shaolinq Error Logging</tags>
+    <dependencies>
+      <dependency id="elmah.corelibrary" version="1.2.2" />
+      <dependency id="Shaolinq" version="0.9.1.394"/>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Elmah.Shaolinq\bin\Release\Elmah.Shaolinq.dll" target="lib\net40" />
+  </files>
+</package>
