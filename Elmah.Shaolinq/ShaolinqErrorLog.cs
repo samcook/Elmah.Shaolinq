@@ -7,7 +7,7 @@ using Shaolinq;
 namespace Elmah.Shaolinq
 {
 	public class ShaolinqErrorLog : ErrorLog
-    {
+	{
 		private const int MaxAppNameLength = 60;
 
 		private readonly IElmahDataAccessModel dataModel;
@@ -37,11 +37,12 @@ namespace Elmah.Shaolinq
 
 			var dataAccessModelConfiguration = ConfigurationBlock<DataAccessModelConfiguration>.Load(dataAccessModelConfigSection);
 
-			this.dataModel = (IElmahDataAccessModel) DataAccessModel.BuildDataAccessModel(
+			this.dataModel = (IElmahDataAccessModel)DataAccessModel.BuildDataAccessModel(
 				Type.GetType(dataAccessModelTypeName),
 				dataAccessModelConfiguration);
-			
+
 			// Set the application name as this implementation provides per-application isolation over a single store.
+			// Use application name of "*" to disable per-application isolation.
 			var appName = config.Find("applicationName", string.Empty);
 
 			if (appName.Length > MaxAppNameLength)
@@ -55,89 +56,101 @@ namespace Elmah.Shaolinq
 		}
 
 		public override string Name
-	    {
-		    get { return "Shaolinq Error Log"; }
-	    }
+		{
+			get { return "Shaolinq Error Log"; }
+		}
 
-	    public override string Log(Error error)
-	    {
-		    if (error == null)
-		    {
-			    throw new ArgumentNullException("error");
-		    }
+		public override string Log(Error error)
+		{
+			if (error == null)
+			{
+				throw new ArgumentNullException("error");
+			}
 
-		    var errorXml = ErrorXml.EncodeString(error);
+			var errorXml = ErrorXml.EncodeString(error);
 
-		    using (var scope = TransactionScopeFactory.CreateReadCommitted())
-		    {
-			    var dbElmahError = dataModel.ElmahErrors.Create();
+			using (var scope = TransactionScopeFactory.CreateReadCommitted())
+			{
+				var dbElmahError = dataModel.ElmahErrors.Create();
 
-			    dbElmahError.Application = ApplicationName;
-			    dbElmahError.Host = error.HostName;
-			    dbElmahError.Type = error.Type;
-			    dbElmahError.Source = error.Source;
-			    dbElmahError.Message = error.Message;
-			    dbElmahError.User = error.User;
-			    dbElmahError.StatusCode = error.StatusCode;
-			    dbElmahError.TimeUtc = error.Time;
-			    dbElmahError.AllXml = errorXml;
+				dbElmahError.Application = ApplicationName;
+				dbElmahError.Host = error.HostName;
+				dbElmahError.Type = error.Type;
+				dbElmahError.Source = error.Source;
+				dbElmahError.Message = error.Message;
+				dbElmahError.User = error.User;
+				dbElmahError.StatusCode = error.StatusCode;
+				dbElmahError.TimeUtc = error.Time;
+				dbElmahError.AllXml = errorXml;
 
-			    scope.Complete();
+				scope.Complete();
 
-			    return dbElmahError.Id.ToString();
-		    }
-	    }
+				return dbElmahError.Id.ToString();
+			}
+		}
 
-	    public override ErrorLogEntry GetError(string id)
-	    {
-		    if (string.IsNullOrEmpty(id))
-		    {
-			    throw new ArgumentNullException("id");
-		    }
+		public override ErrorLogEntry GetError(string id)
+		{
+			if (string.IsNullOrEmpty(id))
+			{
+				throw new ArgumentNullException("id");
+			}
 
-		    Guid errorId;
-		    if (!Guid.TryParse(id, out errorId))
-		    {
-			    throw new ArgumentException("Could not parse id as guid", "id");
-		    }
+			Guid errorId;
+			if (!Guid.TryParse(id, out errorId))
+			{
+				throw new ArgumentException("Could not parse id as guid", "id");
+			}
 
-			var dbElmahError = dataModel.ElmahErrors.SingleOrDefault(x => x.Application == ApplicationName && x.Id == errorId);
+			var dbElmahErrors = dataModel.ElmahErrors.Where(x => x.Id == errorId);
 
-		    if (dbElmahError == null)
-		    {
-			    return null;
-		    }
+			if (ApplicationName != "*")
+			{
+				dbElmahErrors = dbElmahErrors.Where(x => x.Application == ApplicationName);
+			}
 
-		    var error = ErrorXml.DecodeString(dbElmahError.AllXml);
+			var dbElmahError = dbElmahErrors.SingleOrDefault();
+
+			if (dbElmahError == null)
+			{
+				return null;
+			}
+
+			var error = ErrorXml.DecodeString(dbElmahError.AllXml);
 
 			return new ErrorLogEntry(this, id, error);
-	    }
+		}
 
-	    public override int GetErrors(int pageIndex, int pageSize, IList errorEntryList)
-	    {
-		    if (pageIndex < 0)
-		    {
-			    throw new ArgumentOutOfRangeException("pageIndex", pageIndex, null);
-		    }
+		public override int GetErrors(int pageIndex, int pageSize, IList errorEntryList)
+		{
+			if (pageIndex < 0)
+			{
+				throw new ArgumentOutOfRangeException("pageIndex", pageIndex, null);
+			}
 
-		    if (pageSize < 0)
-		    {
-			    throw new ArgumentOutOfRangeException("pageSize", pageSize, null);
-		    }
+			if (pageSize < 0)
+			{
+				throw new ArgumentOutOfRangeException("pageSize", pageSize, null);
+			}
 
-			var dbElmahErrors = dataModel.ElmahErrors
-			    .Where(x => x.Application == ApplicationName)
-			    .OrderByDescending(x => x.Sequence)
-			    .Skip(pageIndex * pageSize)
-			    .Take(pageSize)
-				.ToList();
+			var dbElmahErrors = dataModel.ElmahErrors.Select(x => x);
 
-		    foreach (var dbElmahError in dbElmahErrors)
-		    {
-			    errorEntryList.Add(new ErrorLogEntry(this, dbElmahError.Id.ToString(), ErrorXml.DecodeString(dbElmahError.AllXml)));
-		    }
+			if (ApplicationName != "*")
+			{
+				dbElmahErrors = dbElmahErrors.Where(x => x.Application == ApplicationName);
+			}
+
+			dbElmahErrors = dbElmahErrors
+				.OrderByDescending(x => x.Sequence)
+				.Skip(pageIndex * pageSize)
+				.Take(pageSize);
+
+			foreach (var dbElmahError in dbElmahErrors.ToList())
+			{
+				errorEntryList.Add(new ErrorLogEntry(this, dbElmahError.Id.ToString(), ErrorXml.DecodeString(dbElmahError.AllXml)));
+			}
 
 			return dataModel.ElmahErrors.Count(x => x.Application == ApplicationName);
-	    }
-    }
+		}
+	}
 }

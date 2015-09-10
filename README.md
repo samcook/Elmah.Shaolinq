@@ -28,3 +28,5 @@ In your `web.config`, configure the Elmah error logger:
 </elmah>
 ```
 The `dataAccessModelConfigSection` attribute is optional, defaulting to the name of the `DataAccessModel` type if not specified.
+
+`Elmah.Shaolinq` supports per-application isolation - by default only errors for the application in which Elmah is running will be returned. If you want to return errors for a different application, set the `applicationName` attribute to the name of the application required, or to `*` to disable per-application isolation.
