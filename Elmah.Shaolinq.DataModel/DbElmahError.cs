@@ -2,7 +2,7 @@ using System;
 using Platform.Validation;
 using Shaolinq;
 
-namespace Elmah.Shaolinq
+namespace Elmah.Shaolinq.DataModel
 {
 	/*
 	CREATE TABLE "ElmahError"

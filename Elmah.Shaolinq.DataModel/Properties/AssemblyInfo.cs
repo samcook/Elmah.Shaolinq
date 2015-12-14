@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Elmah.Shaolinq")]
+[assembly: AssemblyTitle("Elmah.Shaolinq.DataModel")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Elmah.Shaolinq")]
+[assembly: AssemblyProduct("Elmah.Shaolinq.DataModel")]
 [assembly: AssemblyCopyright("Copyright © Sam Cook 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d57e1ec6-48b6-42e6-97f2-ead3951185ff")]
+[assembly: Guid("5223b1c4-29a1-4c8a-bccd-18897accf8be")]
 
 // Version information for an assembly consists of the following four values:
 //

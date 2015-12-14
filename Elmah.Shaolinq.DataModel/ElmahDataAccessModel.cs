@@ -1,6 +1,6 @@
 using Shaolinq;
 
-namespace Elmah.Shaolinq
+namespace Elmah.Shaolinq.DataModel
 {
 	[DataAccessModel]
 	public abstract class ElmahDataAccessModel

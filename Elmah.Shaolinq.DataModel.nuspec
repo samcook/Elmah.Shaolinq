@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>Elmah.Shaolinq</id>
+    <id>Elmah.Shaolinq.DataModel</id>
     <version>1.2.0</version>
-    <title>Elmah.Shaolinq</title>
+    <title>Elmah.Shaolinq.DataModel</title>
     <authors>Sam Cook</authors>
     <owners>Sam Cook</owners>
     <licenseUrl>https://github.com/samcook/Elmah.Shaolinq/blob/master/LICENSE</licenseUrl>
@@ -19,12 +19,10 @@
     <copyright>Copyright 2015 Sam Cook</copyright>
     <tags>Elmah Shaolinq Error Logging</tags>
     <dependencies>
-      <dependency id="elmah.corelibrary" version="1.2.2" />
-      <dependency id="Shaolinq" version="0.9.1.395" />
-      <dependency id="Elmah.Shaolinq.DataModel" version="[1.2.0]" />
+      <dependency id="Shaolinq" version="0.9.1.395"/>
     </dependencies>
   </metadata>
   <files>
-    <file src="Elmah.Shaolinq\bin\Release\Elmah.Shaolinq.dll" target="lib\net40" />
+    <file src="Elmah.Shaolinq.DataModel\bin\Release\Elmah.Shaolinq.DataModel.dll" target="lib\net40" />
   </files>
 </package>

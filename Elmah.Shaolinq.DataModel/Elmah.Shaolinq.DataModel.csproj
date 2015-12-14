@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C9FECC6A-54DC-4BA8-A804-30AEB176DF2C}</ProjectGuid>
+    <ProjectGuid>{5223B1C4-29A1-4C8A-BCCD-18897ACCF8BE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Elmah.Shaolinq</RootNamespace>
-    <AssemblyName>Elmah.Shaolinq</AssemblyName>
+    <RootNamespace>Elmah.Shaolinq.DataModel</RootNamespace>
+    <AssemblyName>Elmah.Shaolinq.DataModel</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elmah">
-      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -46,13 +42,12 @@
       <HintPath>..\packages\Platform.Xml.Serialization.1.1.0.204\lib\net40\Platform.Xml.Serialization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shaolinq, Version=0.9.1.395, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shaolinq.0.9.1.395\lib\40\Shaolinq.dll</HintPath>
+    <Reference Include="Shaolinq, Version=0.9.1.426, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shaolinq.0.9.1.426\lib\40\Shaolinq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,19 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DictionaryExtensions.cs" />
-    <Compile Include="ShaolinqErrorLog.cs" />
+    <Compile Include="DbElmahError.cs" />
+    <Compile Include="ElmahDataAccessModel.cs" />
+    <Compile Include="IElmahDataAccessModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Elmah.Shaolinq.DataModel\Elmah.Shaolinq.DataModel.csproj">
-      <Project>{5223b1c4-29a1-4c8a-bccd-18897accf8be}</Project>
-      <Name>Elmah.Shaolinq.DataModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

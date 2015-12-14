@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using Elmah.Shaolinq.DataModel;
 using Platform;
 using Shaolinq;
 
