@@ -9,7 +9,7 @@ namespace Elmah.Shaolinq
 		{
 			if (dict == null)
 			{
-				throw new ArgumentNullException("dict");
+				throw new ArgumentNullException(nameof(dict));
 			}
 
 			return (T) (dict[key] ?? @default);
