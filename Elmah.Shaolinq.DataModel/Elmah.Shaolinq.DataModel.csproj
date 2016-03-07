@@ -58,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Elmah.Shaolinq\Properties\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DbElmahError.cs" />
     <Compile Include="ElmahDataAccessModel.cs" />
     <Compile Include="IElmahDataAccessModel.cs" />

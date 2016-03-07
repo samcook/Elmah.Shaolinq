@@ -56,7 +56,7 @@ namespace Elmah.Shaolinq
 
 		public override string Name => "Shaolinq Error Log";
 
-	    public override string Log(Error error)
+		public override string Log(Error error)
 		{
 			if (error == null)
 			{
