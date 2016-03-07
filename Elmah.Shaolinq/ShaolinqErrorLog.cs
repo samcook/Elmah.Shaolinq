@@ -26,7 +26,7 @@ namespace Elmah.Shaolinq
 
 			if (modelType == null)
 			{
-				throw new ApplicationException(string.Format("Could not find type {0}", dataAccessModelTypeName));
+				throw new ApplicationException($"Could not find type {dataAccessModelTypeName}");
 			}
 
 			if (!modelType.GetInterfaces().Contains(typeof(IElmahDataAccessModel)))
@@ -48,29 +48,24 @@ namespace Elmah.Shaolinq
 
 			if (appName.Length > MaxAppNameLength)
 			{
-				throw new ApplicationException(String.Format(
-					"Application name is too long. Maximum length allowed is {0} characters.",
-					MaxAppNameLength.ToString("N0")));
+				throw new ApplicationException($"Application name is too long. Maximum length allowed is {MaxAppNameLength.ToString("N0")} characters.");
 			}
 
 			ApplicationName = appName;
 		}
 
-		public override string Name
-		{
-			get { return "Shaolinq Error Log"; }
-		}
+		public override string Name => "Shaolinq Error Log";
 
-		public override string Log(Error error)
+	    public override string Log(Error error)
 		{
 			if (error == null)
 			{
-				throw new ArgumentNullException("error");
+				throw new ArgumentNullException(nameof(error));
 			}
 
 			var errorXml = ErrorXml.EncodeString(error);
 
-			using (var scope = TransactionScopeFactory.CreateReadCommitted())
+			using (var scope = DataAccessScope.CreateReadCommitted())
 			{
 				var dbElmahError = dataModel.ElmahErrors.Create();
 
@@ -94,13 +89,13 @@ namespace Elmah.Shaolinq
 		{
 			if (string.IsNullOrEmpty(id))
 			{
-				throw new ArgumentNullException("id");
+				throw new ArgumentNullException(nameof(id));
 			}
 
 			Guid errorId;
 			if (!Guid.TryParse(id, out errorId))
 			{
-				throw new ArgumentException("Could not parse id as guid", "id");
+				throw new ArgumentException("Could not parse id as guid", nameof(id));
 			}
 
 			var dbElmahErrors = dataModel.ElmahErrors.Where(x => x.Id == errorId);
@@ -126,12 +121,12 @@ namespace Elmah.Shaolinq
 		{
 			if (pageIndex < 0)
 			{
-				throw new ArgumentOutOfRangeException("pageIndex", pageIndex, null);
+				throw new ArgumentOutOfRangeException(nameof(pageIndex), pageIndex, null);
 			}
 
 			if (pageSize < 0)
 			{
-				throw new ArgumentOutOfRangeException("pageSize", pageSize, null);
+				throw new ArgumentOutOfRangeException(nameof(pageSize), pageSize, null);
 			}
 
 			var dbElmahErrors = dataModel.ElmahErrors.Select(x => x);
