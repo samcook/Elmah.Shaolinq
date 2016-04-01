@@ -136,6 +136,8 @@ namespace Elmah.Shaolinq
 				dbElmahErrors = dbElmahErrors.Where(x => x.Application == ApplicationName);
 			}
 
+			var dbElmahErrorsPreSkipTake = dbElmahErrors;
+
 			dbElmahErrors = dbElmahErrors
 				.OrderByDescending(x => x.TimeUtc)
 				.ThenByDescending(x => x.Sequence)
@@ -147,7 +149,7 @@ namespace Elmah.Shaolinq
 				errorEntryList.Add(new ErrorLogEntry(this, dbElmahError.Id.ToString(), ErrorXml.DecodeString(dbElmahError.AllXml)));
 			}
 
-			return dataModel.ElmahErrors.Count(x => x.Application == ApplicationName);
+			return dbElmahErrorsPreSkipTake.Count();
 		}
 	}
 }
