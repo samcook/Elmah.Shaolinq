@@ -137,7 +137,8 @@ namespace Elmah.Shaolinq
 			}
 
 			dbElmahErrors = dbElmahErrors
-				.OrderByDescending(x => x.Sequence)
+				.OrderByDescending(x => x.TimeUtc)
+				.ThenByDescending(x => x.Sequence)
 				.Skip(pageIndex * pageSize)
 				.Take(pageSize);
 
